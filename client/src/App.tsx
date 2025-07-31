@@ -8,20 +8,20 @@ import type { Product } from './dataModels/products'
 import ProductsPage from './pages/productsPage'
 
 function App() {
-  const [categories, setCategories] = useState<Category[]>([]);
-  const [products, setProducts] = useState<Product[]>([]); // Placeholder for products state
+    const [categories, setCategories] = useState<Category[]>([]);
+    const [products, setProducts] = useState<Product[]>([]); // Placeholder for products state
 
-  useEffect(() => {
-    categoryActions.fetchCategories().then(setCategories);
-    productActions.fetchProducts().then(setProducts);
-  }, []);
+    useEffect(() => {
+        categoryActions.fetchCategories().then(setCategories);
+        productActions.fetchProducts().then(setProducts);
+    }, []);
 
-  return (
-    <>
-      <ProductCategories categories={categories} setCategories={setCategories} />
-      <ProductsPage products={products} setProducts={setProducts} categories={categories} />
-    </>
-  )
+    return (
+        <>
+            <ProductCategories categories={categories} setCategories={setCategories} />
+            <ProductsPage products={products} setProducts={setProducts} categories={categories} />
+        </>
+    )
 }
 
 export default App

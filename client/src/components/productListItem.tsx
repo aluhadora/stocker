@@ -12,14 +12,14 @@ type ProductListItemProps = {
 };
 
 export default function ProductListItem({ product, updateProduct, commitProduct, deleteProduct, categories }: ProductListItemProps) {
-  return (
-    <ListItem
-      canDelete={true}
-      onDelete={() => deleteProduct(product.id)}
-      canEdit={true}
-      commit={() => commitProduct(product)}
-      editControl={<ProductEditControl product={product} editProduct={updateProduct} categories={categories} />} >
-      {product.name}
-    </ListItem>
-  )
+    return (
+        <ListItem
+            canDelete={true}
+            onDelete={() => deleteProduct(product.id)}
+            canEdit={true}
+            commit={() => commitProduct(product)}
+            editControl={<ProductEditControl product={product} editProduct={updateProduct} categories={categories} />} >
+            {product.name}
+        </ListItem>
+    )
 }
