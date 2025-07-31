@@ -1,7 +1,7 @@
 import type { Category } from "../dataModels/categories";
 
 export async function fetchCategories(): Promise<Category[]> {
-    const res = await fetch('http://localhost:3005/api/categories');
+    const res = await fetch(`${import.meta.env.VITE_API_SERVER_URL}/categories`);
     const data = await res.json();
     if (Array.isArray(data)) {
         return data;
@@ -12,7 +12,7 @@ export async function fetchCategories(): Promise<Category[]> {
 }
 
 export async function addCategory(category: Category): Promise<Category[]> {
-    const res = await fetch('http://localhost:3005/api/categories', {
+    const res = await fetch(`${import.meta.env.VITE_API_SERVER_URL}/categories`, {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
@@ -26,7 +26,7 @@ export async function addCategory(category: Category): Promise<Category[]> {
 }
 
 export async function editCategory(category: Category): Promise<Category[]> {
-    const res = await fetch(`http://localhost:3005/api/categories/${category.id}`, {
+    const res = await fetch(`${import.meta.env.VITE_API_SERVER_URL}/categories/${category.id}`, {
         method: 'PUT',
         headers: {
             'Content-Type': 'application/json'
@@ -40,7 +40,7 @@ export async function editCategory(category: Category): Promise<Category[]> {
 }
 
 export async function deleteCategory(categoryId: string): Promise<Category[]> {
-    const res = await fetch(`http://localhost:3005/api/categories/${categoryId}`, {
+    const res = await fetch(`${import.meta.env.VITE_API_SERVER_URL}/categories/${categoryId}`, {
         method: 'DELETE'
     });
     if (!res.ok) {

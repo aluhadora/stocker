@@ -1,7 +1,7 @@
 import type { Product } from "../dataModels/products";
 
 export async function fetchProducts(): Promise<Product[]> {
-    const res = await fetch('http://localhost:3005/api/products');
+    const res = await fetch(`${import.meta.env.VITE_API_SERVER_URL}/products`);
     const data = await res.json();
     if (Array.isArray(data)) {
         return data;
@@ -12,7 +12,7 @@ export async function fetchProducts(): Promise<Product[]> {
 }
 
 export async function addProduct(product: Product): Promise<Product[]> {
-    const res = await fetch('http://localhost:3005/api/products', {
+    const res = await fetch(`${import.meta.env.VITE_API_SERVER_URL}/products`, {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
@@ -26,7 +26,7 @@ export async function addProduct(product: Product): Promise<Product[]> {
 }
 
 export async function editProduct(product: Product): Promise<Product[]> {
-    const res = await fetch(`http://localhost:3005/api/products/${product.id}`, {
+    const res = await fetch(`${import.meta.env.VITE_API_SERVER_URL}/products/${product.id}`, {
         method: 'PUT',
         headers: {
             'Content-Type': 'application/json'
@@ -40,7 +40,7 @@ export async function editProduct(product: Product): Promise<Product[]> {
 }
 
 export async function deleteProduct(productId: string): Promise<Product[]> {
-    const res = await fetch(`http://localhost:3005/api/products/${productId}`, {
+    const res = await fetch(`${import.meta.env.VITE_API_SERVER_URL}/products/${productId}`, {
         method: 'DELETE'
     });
     if (!res.ok) {
