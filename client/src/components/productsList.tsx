@@ -1,0 +1,36 @@
+import { useState } from "react";
+import type { Product } from "../dataModels/products";
+import ProductListItem from "./productListItem";
+import ProductEditControl from "./productEditControl";
+
+export default function ProductsList({ products, editProduct, deleteProduct }: { products: Product[], editProduct: (product: Product) => void, deleteProduct: (productId: string) => void }) {
+    const [addingNew, setAddingNew] = useState(false);
+    const [newProduct, setNewProduct] = useState<Product>({ id: '', name: '', category: '', typicalExpirationValue: 0, typicalExpirationUnit: 'days' });
+    
+    const handleAddNewProduct = () => {
+        if (newProduct.name.trim() === '' || newProduct.category.trim() === '') {
+            alert("Name and category are required.");
+            return;
+        }
+        const productToAdd = { ...newProduct, id: (Math.random() * 1000000).toFixed(0) }; // Simple ID generation
+        editProduct(productToAdd);
+        setNewProduct({ id: '', name: '', category: '', typicalExpirationValue: 0, typicalExpirationUnit: 'days' });
+        setAddingNew(false);
+    }
+
+    return (
+        <div>
+            <ul>
+                {products.map((product) => (
+                    <ProductListItem key={product.id} product={product} editProduct={editProduct} deleteProduct={deleteProduct} />
+                ))}
+            </ul>
+            {addingNew && (
+                <ProductEditControl product={newProduct} editProduct={setNewProduct} />
+            )}
+            { !addingNew && <button onClick={() => setAddingNew(true)}>Add New Product</button> }
+            { addingNew && <button onClick={handleAddNewProduct}>Save</button>}
+
+        </div>
+    )
+}
