@@ -3,7 +3,14 @@ import type { Product } from "../dataModels/products";
 import ProductListItem from "./productListItem";
 import ProductEditControl from "./productEditControl";
 
-export default function ProductsList({ products, editProduct, deleteProduct }: { products: Product[], editProduct: (product: Product) => void, deleteProduct: (productId: string) => void }) {
+type ProductsListProps = {
+    products: Product[];
+    updateProduct: (product: Product) => void;
+    commitProduct: (product: Product) => void;
+    deleteProduct: (productId: string) => void;
+}
+
+export default function ProductsList({ products, updateProduct, commitProduct, deleteProduct }: ProductsListProps) {
     const [addingNew, setAddingNew] = useState(false);
     const [newProduct, setNewProduct] = useState<Product>({ id: '', name: '', category: '', typicalExpirationValue: 0, typicalExpirationUnit: 'days' });
     
@@ -12,8 +19,8 @@ export default function ProductsList({ products, editProduct, deleteProduct }: {
             alert("Name and category are required.");
             return;
         }
-        const productToAdd = { ...newProduct, id: (Math.random() * 1000000).toFixed(0) }; // Simple ID generation
-        editProduct(productToAdd);
+        const productToAdd = { ...newProduct }; // Simple ID generation
+        commitProduct(productToAdd);
         setNewProduct({ id: '', name: '', category: '', typicalExpirationValue: 0, typicalExpirationUnit: 'days' });
         setAddingNew(false);
     }
@@ -22,7 +29,7 @@ export default function ProductsList({ products, editProduct, deleteProduct }: {
         <div>
             <ul>
                 {products.map((product) => (
-                    <ProductListItem key={product.id} product={product} editProduct={editProduct} deleteProduct={deleteProduct} />
+                    <ProductListItem key={product.id} product={product} updateProduct={updateProduct} commitProduct={commitProduct} deleteProduct={deleteProduct} />
                 ))}
             </ul>
             {addingNew && (

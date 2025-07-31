@@ -1,7 +1,7 @@
 import { Request, Response } from 'express';
 import { Category } from '../../dataModels/categories';
 
-export async function getCategories(req : Request, res : Response) {
+export async function getCategories(_req : Request, res : Response) {
     if (!global.state || !global.state.categories) {
         global.state = global.state || {};
         global.state.categories = [];

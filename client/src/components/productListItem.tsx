@@ -4,17 +4,19 @@ import ProductEditControl from "./productEditControl";
 
 type ProductListItemProps = {
     product: Product;
-    editProduct: (product: Product) => void;
+    updateProduct: (product: Product) => void;
+    commitProduct: (product: Product) => void;
     deleteProduct: (productId: string) => void;
 };
 
-export default function ProductListItem({ product, editProduct, deleteProduct }: ProductListItemProps) {
+export default function ProductListItem({ product, updateProduct, commitProduct, deleteProduct }: ProductListItemProps) {
   return (
     <ListItem
       canDelete={true}
       onDelete={() => deleteProduct(product.id)}
       canEdit={true}
-      editControl={<ProductEditControl product={product} editProduct={editProduct} />} >
+      commit={() => commitProduct(product)}
+      editControl={<ProductEditControl product={product} editProduct={updateProduct} />} >
       {product.name}
     </ListItem>
   )
