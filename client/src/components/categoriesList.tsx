@@ -1,7 +1,14 @@
 import type { Category } from "../dataModels/categories";
 import CategoryListItem from "./categoryListItem";
 
-export default function CategoriesList({ categories, editCategory, deleteCategory, addCategory }: { categories: Category[], editCategory: (category: Category) => void, deleteCategory: (categoryToDelete: Category) => void, addCategory: (newCategory: Category) => void }) {
+type CategoryListItemProps = {
+    categories: Category[];
+    editCategory: (category: Category) => void;
+    deleteCategory: (category: Category) => void;
+    addCategory: (category: Category) => void;
+};
+
+export default function CategoriesList({ categories, editCategory, deleteCategory, addCategory }: CategoryListItemProps) {
     return (
         <div>
             <ul>

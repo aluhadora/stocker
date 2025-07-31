@@ -1,8 +1,15 @@
 import ProductsList from "../components/productsList";
 import type { Product } from "../dataModels/products";
 import * as productActions from '../actions/productActions'
+import type { Category } from "../dataModels/categories";
 
-export default function ProductsPage({ products, setProducts }: { products: Product[], setProducts: (products: Product[]) => void }) {
+type ProductsPageProps = {
+    products: Product[];
+    setProducts: (products: Product[]) => void;
+    categories: Category[];
+};
+
+export default function ProductsPage({ products, setProducts, categories }: ProductsPageProps) {
     const handleUpdateProduct = (updatedProduct: Product) => {
         setProducts(products.map(p => p.id === updatedProduct.id ? updatedProduct : p));
     }
@@ -45,6 +52,7 @@ export default function ProductsPage({ products, setProducts }: { products: Prod
             <h1>Products Page</h1>
             <ProductsList
                 products={products}
+                categories={categories}
                 updateProduct={handleUpdateProduct}
                 commitProduct={handleCommitProduct}
                 deleteProduct={handleDeleteProduct} />

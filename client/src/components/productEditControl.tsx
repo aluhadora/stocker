@@ -1,11 +1,13 @@
+import type { Category } from "../dataModels/categories";
 import type { Product } from "../dataModels/products";
 
 type EditProductControlProps = {
     product: Product;
-    editProduct: (newProduct: Product) => void;
+    editProduct: (product: Product) => void;
+    categories: Category[];
 };
 
-export default function EditProductControl({ product, editProduct }: EditProductControlProps) {
+export default function EditProductControl({ product, editProduct, categories }: EditProductControlProps) {
 
     return (
         <div>
@@ -13,6 +15,7 @@ export default function EditProductControl({ product, editProduct }: EditProduct
                 <strong>Editing Product:</strong> {product.name} (ID: {product.id})
             </div>
             <div>
+                <label>Name: </label>
                 <input
                     type="text"
                     value={product.name}
@@ -20,11 +23,16 @@ export default function EditProductControl({ product, editProduct }: EditProduct
                 />
             </div>
             <div>
-                <input
-                    type="text"
+                <label>Category: </label>
+                <select
                     value={product.category}
                     onChange={(e) => editProduct({ ...product, category: e.target.value })}
-                />
+                >
+                    <option value="">-- Select Category --</option>
+                    {categories.map((cat) => (
+                        <option key={cat.id} value={cat.name}>{cat.name}</option>
+                    ))}
+                </select>
             </div>
             <div>
                 <label>Typical Expiration: </label>
@@ -42,9 +50,7 @@ export default function EditProductControl({ product, editProduct }: EditProduct
                     <option value="months">Months</option>
                     <option value="years">Years</option>
                 </select>
-
             </div>
-
         </div>
     );
 }
